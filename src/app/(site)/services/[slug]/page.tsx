@@ -9,14 +9,15 @@ export function generateStaticParams() {
 }
 
 type ServiceDetailsPageProps = {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 };
 
-const ServiceDetailsPage = ({ params }: ServiceDetailsPageProps) => {
+const ServiceDetailsPage = async ({ params }: ServiceDetailsPageProps) => {
+    const { slug } = await params;
     const item = ServicesData.find(
-        (service) => service.slug.toLowerCase() === params.slug.toLowerCase()
+        (service) => service.slug.toLowerCase() === slug.toLowerCase()
     );
 
     if (!item) {
