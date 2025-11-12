@@ -21,6 +21,20 @@ const Footer: FC = () => {
               We are a forward-thinking organization dedicated to innovation, collaboration, and community impact.
               </p>
             </div>
+            <div className="flex items-center gap-4 mt-6">
+                <Link
+                  href="https://wa.me/919290480866"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white px-4 py-2 rounded-md transition-colors duration-200"
+                >
+                  <Icon
+                    icon="mdi:whatsapp"
+                    className="text-xl"
+                  />
+                  <span className="text-sm font-medium">Connect on WhatsApp</span>
+                </Link>
+              </div>
           </div>
           <div className="lg:col-span-3 md:col-span-4 col-span-6">
             <div className="lg:pl-10">
@@ -39,7 +53,9 @@ const Footer: FC = () => {
                     D.No: 1-56-6, MIG-9, Sector-1, MVP Colony, Beside Ralla Bella School, Opposite SBI Bank, Visakhapatnam, Andhra Pradesh
                   </p>
                 </div>
+                
               </div>
+              
               <div className="flex items-center mb-8 gap-4">
                 <Image
                   src="/images/icons/icon-phone.svg"
@@ -72,6 +88,7 @@ const Footer: FC = () => {
                   </Link>
                 </div>
               </div>
+              
             </div>
           </div>
           <div className="lg:col-span-3 md:col-span-4 col-span-6">
