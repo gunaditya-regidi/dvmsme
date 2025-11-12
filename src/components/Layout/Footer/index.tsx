@@ -21,7 +21,7 @@ const Footer: FC = () => {
               We are a forward-thinking organization dedicated to innovation, collaboration, and community impact.
               </p>
             </div>
-            <div className="flex items-center gap-4 mt-6">
+            <div className="flex flex-col items-start gap-4 mt-6">
                 <Link
                   href="https://wa.me/919290480866"
                   target="_blank"
@@ -33,6 +33,18 @@ const Footer: FC = () => {
                     className="text-xl"
                   />
                   <span className="text-sm font-medium">Connect on WhatsApp</span>
+                </Link>
+                <Link
+                  href="https://tv2rism.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-gradient-to-r from-red-600 to-[#800020] hover:from-red-700 hover:to-[#700018] text-white px-4 py-2 rounded-md transition-all duration-200"
+                >
+                  <Icon
+                    icon="mdi:play-circle"
+                    className="text-xl"
+                  />
+                  <span className="text-sm font-medium">Watch TV2RISM OTT now!</span>
                 </Link>
               </div>
           </div>
