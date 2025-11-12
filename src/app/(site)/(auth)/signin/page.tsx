@@ -2,6 +2,8 @@ import Signin from "@/components/Auth/SignIn";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { Metadata } from "next";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title:
     "Sign In | Digital Videos MSME",
