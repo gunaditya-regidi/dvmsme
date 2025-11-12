@@ -6,8 +6,17 @@ import Footer from "@/components/Layout/Footer";
 import ScrollToTop from '@/components/ScrollToTop';
 import Aoscompo from "@/utils/aos";
 import { DonationProvider } from "./context/donationContext";
+import { Metadata } from "next";
 const montserrat = Montserrat({ subsets: ["latin"] });
 import NextTopLoader from 'nextjs-toploader';
+
+export const metadata: Metadata = {
+  title: {
+    default: "Digital Videos MSME",
+    template: "%s | Digital Videos MSME"
+  },
+  description: "Digital Videos MSME - Empowering businesses through digital solutions",
+};
 
 export default function RootLayout({
   children,
