@@ -15,12 +15,10 @@ const Footer: FC = () => {
             <Logo />
             <div className="mt-6">
               <p className="text-sm font-light text-white mb-6">
-                You can relay on our amazing features list and also our customer
-                services will be great experience.
+              Our platform brings together technology, creativity, and purpose — empowering individuals, institutions, and industries to grow together in the digital era.
               </p>
               <p className="text-sm font-light text-white mb-0">
-                our amazing features list and also our customer services is
-                great.
+              We are a forward-thinking organization dedicated to innovation, collaboration, and community impact.
               </p>
             </div>
           </div>
