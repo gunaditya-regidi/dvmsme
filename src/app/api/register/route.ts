@@ -4,14 +4,7 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
     
-    // Check if the Google Script URL is configured
-    const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
-    
-    if (!scriptUrl) {
-      console.warn("GOOGLE_SCRIPT_URL is not set. Data: ", data);
-      // For development, we'll return success even if unconfigured 
-      return NextResponse.json({ success: true, message: 'Simulated success (URL not configured)' });
-    }
+    const scriptUrl = process.env.GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbzfmWlyPFUdMjQhU1bxXKGfqCim2t5NGiJ91Vnql0ZSMnJdHLoMvJ-_Ah9AGJ84-SWP/exec";
 
     const response = await fetch(scriptUrl, {
       method: 'POST',

@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { 
-  Play, Calendar, Clock, Monitor, Code, Award, 
-  Users, CheckCircle, ArrowRight, BookOpen, User, 
+import {
+  Play, Calendar, Clock, Monitor, Code, Award,
+  Users, CheckCircle, ArrowRight, BookOpen, User,
   PhoneCall, Mail, Terminal, Database, ShieldCheck,
   Briefcase
 } from 'lucide-react';
@@ -34,11 +34,11 @@ export default function OnlineClassesContent() {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(!formData.name || !formData.phone || !formData.email) {
+    if (!formData.name || !formData.phone || !formData.email) {
       toast.error('Please fill all fields');
       return;
     }
-    
+
     setIsSubmitting(true);
     let toastId = toast.loading('Sending application...');
 
@@ -65,11 +65,11 @@ export default function OnlineClassesContent() {
   return (
     <div className="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-cyan-500/30 overflow-x-hidden relative">
       <Toaster position="top-right" />
-      
+
       {/* Background Elements */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         {/* Base Grid Background */}
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)`,
@@ -78,7 +78,7 @@ export default function OnlineClassesContent() {
             maskImage: `radial-gradient(ellipse at 50% 50%, #000 10%, transparent 80%)`,
           }}
         />
-        
+
         {/* Colored Glowing Orbs */}
         <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-[128px]" />
         <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[128px]" />
@@ -89,12 +89,12 @@ export default function OnlineClassesContent() {
       <div className="relative z-10 w-full border-b border-white/10 bg-slate-900/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(34,211,238,0.3)]">
-               A
-             </div>
-             <h1 className="text-2xl font-black tracking-wider text-transparent bg-clip-text inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
-               AISOFT
-             </h1>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+              A
+            </div>
+            <h1 className="text-2xl font-black tracking-wider text-transparent bg-clip-text inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
+              AISOFT
+            </h1>
           </div>
           <div className="text-xs sm:text-sm font-medium text-slate-200 flex flex-wrap justify-center md:justify-end gap-x-2 gap-y-1">
             <span>In collaboration with <span className="text-cyan-400 font-bold">VC Tech</span> & <span className="text-purple-400 font-bold">Talent Computers</span></span>
@@ -105,7 +105,7 @@ export default function OnlineClassesContent() {
       </div>
 
       <main className="relative z-10">
-        
+
         {/* HERO SECTION */}
         <section className="relative pt-20 pb-32 lg:pt-32 lg:pb-40 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-4xl mx-auto" data-aos="fade-up">
@@ -116,18 +116,18 @@ export default function OnlineClassesContent() {
               </span>
               Practical Tech Training & Real-World Solutions
             </div>
-            
+
             <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight text-white">
               Build Industry-Ready <br />
               <span className="text-transparent bg-clip-text inline-block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 drop-shadow-[0_0_20px_rgba(34,211,238,0.3)]">
                 Tech Skills
               </span>
             </h2>
-            
+
             <p className="text-lg md:text-xl text-slate-200 mb-10 max-w-2xl mx-auto leading-relaxed">
               Master Full Stack Development or Data Analytics with <span className="text-white font-bold">live training</span>, <span className="text-white font-bold">real projects</span>, and <span className="text-white font-bold">portfolio development</span>. Join the elite batch of 15 students to kickstart your career.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a href="#register" className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all flex items-center justify-center gap-2 group">
                 Register Now
@@ -149,25 +149,25 @@ export default function OnlineClassesContent() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-              
+
               {/* COURSE 1: DATA ANALYTICS */}
               <div className="group rounded-3xl bg-slate-800 border border-slate-700 hover:border-cyan-500/50 transition-all overflow-hidden flex flex-col relative shadow-[0_4px_40px_rgba(0,0,0,0.5)]" data-aos="fade-up" data-aos-delay="100">
                 {/* 1:1 Image Slider Top */}
                 <div className="relative w-full aspect-square overflow-hidden bg-slate-950">
-                  <Image 
-                    src="/images/event/da1.png" 
-                    alt="Data Analytics Preview 1" 
-                    fill 
-                    className={`object-cover transition-opacity duration-1000 ${activeImageSlide === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} 
+                  <Image
+                    src="/images/event/da1.png"
+                    alt="Data Analytics Preview 1"
+                    fill
+                    className={`object-cover transition-opacity duration-1000 ${activeImageSlide === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                   />
-                  <Image 
-                    src="/images/event/da2.png" 
-                    alt="Data Analytics Preview 2" 
-                    fill 
-                    className={`object-cover transition-opacity duration-1000 ${activeImageSlide === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} 
+                  <Image
+                    src="/images/event/da2.png"
+                    alt="Data Analytics Preview 2"
+                    fill
+                    className={`object-cover transition-opacity duration-1000 ${activeImageSlide === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-800 via-slate-800/20 to-transparent opacity-90 z-20" />
-                  
+
                   {/* Floating Icon over Slide */}
                   <div className="absolute top-6 right-6 z-30 opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 bg-slate-900/50 p-4 rounded-2xl backdrop-blur-md">
                     <Database className="w-12 h-12 text-cyan-400" />
@@ -177,7 +177,7 @@ export default function OnlineClassesContent() {
                 <div className="px-8 pb-8 pt-4 flex-grow relative z-30">
                   <h4 className="text-2xl font-bold text-white mb-2">Data Analytics Program</h4>
                   <p className="text-cyan-400 font-medium mb-6">50 Hours (6 Weeks)</p>
-                  
+
                   <div className="space-y-4 mb-8">
                     <div className="flex gap-3">
                       <Monitor className="w-5 h-5 text-slate-300 shrink-0" />
@@ -200,7 +200,7 @@ export default function OnlineClassesContent() {
                       <p className="text-slate-200"><span className="text-white font-semibold">Outcomes:</span> Real-world projects, dashboards, portfolio, interview prep</p>
                     </div>
                   </div>
-                  
+
                   <div className="mt-auto pt-6 border-t border-slate-700 flex flex-col md:flex-row gap-4 items-start md:items-end justify-between">
                     <div>
                       <p className="text-slate-300 text-sm mb-1 uppercase tracking-wider font-semibold">Fee / Limited Seats</p>
@@ -221,20 +221,20 @@ export default function OnlineClassesContent() {
               <div className="group rounded-3xl bg-slate-800 border border-slate-700 hover:border-purple-500/50 transition-all overflow-hidden flex flex-col relative shadow-[0_4px_40px_rgba(0,0,0,0.5)]" data-aos="fade-up" data-aos-delay="200">
                 {/* 1:1 Image Slider Top */}
                 <div className="relative w-full aspect-square overflow-hidden bg-slate-950">
-                  <Image 
-                    src="/images/event/fst1.png" 
-                    alt="Full Stack Preview 1" 
-                    fill 
-                    className={`object-cover transition-opacity duration-1000 ${activeImageSlide === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} 
+                  <Image
+                    src="/images/event/fst1.png"
+                    alt="Full Stack Preview 1"
+                    fill
+                    className={`object-cover transition-opacity duration-1000 ${activeImageSlide === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                   />
-                  <Image 
-                    src="/images/event/fst2.png" 
-                    alt="Full Stack Preview 2" 
-                    fill 
-                    className={`object-cover transition-opacity duration-1000 ${activeImageSlide === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} 
+                  <Image
+                    src="/images/event/fst2.png"
+                    alt="Full Stack Preview 2"
+                    fill
+                    className={`object-cover transition-opacity duration-1000 ${activeImageSlide === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-800 via-slate-800/20 to-transparent opacity-90 z-20" />
-                  
+
                   {/* Floating Icon over Slide */}
                   <div className="absolute top-6 right-6 z-30 opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 bg-slate-900/50 p-4 rounded-2xl backdrop-blur-md">
                     <Terminal className="w-12 h-12 text-purple-400" />
@@ -244,7 +244,7 @@ export default function OnlineClassesContent() {
                 <div className="px-8 pb-8 pt-4 flex-grow relative z-30">
                   <h4 className="text-2xl font-bold text-white mb-2">Full Stack Development</h4>
                   <p className="text-purple-400 font-medium mb-6">80 Hours (10–12 Weeks) • Python-Based</p>
-                  
+
                   <div className="space-y-4 mb-8">
                     <div className="flex gap-3">
                       <Monitor className="w-5 h-5 text-slate-300 shrink-0" />
@@ -267,7 +267,7 @@ export default function OnlineClassesContent() {
                       <p className="text-slate-200"><span className="text-white font-semibold">Outcomes:</span> Full-stack apps, live deployment, portfolio, interview prep</p>
                     </div>
                   </div>
-                  
+
                   <div className="mt-auto pt-6 border-t border-slate-700 flex flex-col md:flex-row gap-4 items-start md:items-end justify-between">
                     <div>
                       <p className="text-slate-300 text-sm mb-1 uppercase tracking-wider font-semibold">Fee / Limited Seats</p>
@@ -280,7 +280,7 @@ export default function OnlineClassesContent() {
                     <button onClick={(e) => {
                       const elm = document.getElementById('register');
                       elm?.scrollIntoView({ behavior: 'smooth' });
-                      setFormData({...formData, course: 'fullstack'});
+                      setFormData({ ...formData, course: 'fullstack' });
                     }} className="px-5 py-2.5 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/30 transition-colors font-medium text-sm whitespace-nowrap">
                       Select Course
                     </button>
@@ -289,7 +289,7 @@ export default function OnlineClassesContent() {
               </div>
 
             </div>
-            
+
             <div className="mt-12 text-center" data-aos="fade-up">
               <span className="inline-flex items-center flex-wrap justify-center gap-2 bg-white/10 border border-white/20 rounded-xl px-5 py-3 text-sm backdrop-blur-sm shadow-lg text-white">
                 <CheckCircle className="w-5 h-5 text-cyan-400" />
@@ -329,10 +329,10 @@ export default function OnlineClassesContent() {
         {/* SCHEDULE SECTION (Timeline) */}
         <section className="py-24 bg-slate-900/80 border-y border-white/10 relative overflow-hidden">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
-          
+
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" data-aos="fade-up">
             <h3 className="text-3xl font-bold text-center mb-16 text-white">Weekly Training Schedule</h3>
-            
+
             <div className="relative border-l-2 border-slate-600 ml-6 md:ml-12 space-y-12">
               <div className="relative group">
                 <div className="absolute -left-[45px] top-6 w-10 h-10 rounded-full bg-slate-800 border-2 border-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(34,211,238,0.4)]">
@@ -344,7 +344,7 @@ export default function OnlineClassesContent() {
                   <p className="text-slate-200">Intensive live online theory and practical demonstration sessions covering the syllabus topics.</p>
                 </div>
               </div>
-              
+
               <div className="relative group">
                 <div className="absolute -left-[45px] top-6 w-10 h-10 rounded-full bg-slate-800 border-2 border-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(168,85,247,0.4)]">
                   <Calendar className="w-5 h-5 text-purple-400" />
@@ -364,12 +364,12 @@ export default function OnlineClassesContent() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="rounded-3xl bg-slate-800 border border-slate-600 overflow-hidden shadow-2xl relative" data-aos="zoom-in">
               <div className="absolute top-0 left-0 w-full h-1 md:h-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600" />
-              
+
               <div className="grid lg:grid-cols-5 h-full">
                 <div className="lg:col-span-2 p-8 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-slate-600 bg-slate-900/50 flex flex-col justify-center text-white">
                   <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-white">Secure Your Spot</h3>
                   <p className="text-slate-200 mb-10 text-lg">We strictly restrict batch sizes to ensure quality. Register now to grab your seat.</p>
-                  
+
                   <div className="space-y-6">
                     <div className="flex items-center gap-4 bg-red-500/10 px-5 py-4 rounded-xl border border-red-500/30">
                       <div className="w-12 h-12 rounded-full bg-red-500/30 flex items-center justify-center text-red-100 font-black text-xl shrink-0 shadow-[0_0_15px_rgba(239,68,68,0.3)]">
@@ -380,7 +380,7 @@ export default function OnlineClassesContent() {
                         <p className="font-bold text-white text-lg">Limited to 15 Students</p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center gap-5 px-2 mt-4 text-white">
                       <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-300 shrink-0 border border-cyan-500/30">
                         <PhoneCall className="w-5 h-5" />
@@ -390,58 +390,58 @@ export default function OnlineClassesContent() {
                         <a href="tel:9848418582" className="text-xl font-bold text-white hover:text-cyan-300 transition-colors">9848418582</a>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center gap-5 px-2 text-white">
-                       <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-300 shrink-0 border border-purple-500/30">
+                      <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-300 shrink-0 border border-purple-500/30">
                         <Mail className="w-5 h-5" />
                       </div>
                       <div>
                         <p className="text-sm text-purple-100 mb-1 font-semibold">Support Email</p>
-                        <a href="mailto:info@aisoft.in" className="text-lg font-bold text-white hover:text-purple-300 transition-colors">info@aisoft.in</a>
+                        <a href="mailto:talentcomputers2013@gmail.com" className="text-lg font-bold text-white hover:text-purple-300 transition-colors">talentcomputers2013@gmail.com</a>
                       </div>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="lg:col-span-3 p-8 sm:p-10 lg:p-12 relative overflow-hidden bg-slate-900 border-l border-slate-700">
                   <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-[80px]" />
                   <div className="absolute -top-20 -left-20 w-80 h-80 bg-purple-500/10 rounded-full blur-[80px]" />
-                  
+
                   <form onSubmit={handleRegister} className="space-y-6 relative z-10 w-full max-w-lg mx-auto">
                     <h4 className="text-2xl font-bold mb-6 text-white">Registration Application</h4>
-                    
+
                     <div className="grid sm:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label htmlFor="name" className="text-sm font-bold text-slate-200">Full Name</label>
-                        <input 
-                          type="text" 
+                        <input
+                          type="text"
                           id="name"
                           value={formData.name}
-                          onChange={(e) => setFormData({...formData, name: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3.5 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-medium shadow-inner"
                           placeholder="Your Name"
                         />
                       </div>
                       <div className="space-y-2">
                         <label htmlFor="phone" className="text-sm font-bold text-slate-200">Phone Number</label>
-                        <input 
-                          type="tel" 
+                        <input
+                          type="tel"
                           id="phone"
                           value={formData.phone}
-                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3.5 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-medium shadow-inner"
                           placeholder="Your Phone"
                         />
                       </div>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <label htmlFor="email" className="text-sm font-bold text-slate-200">Email Address</label>
-                      <input 
-                        type="email" 
+                      <input
+                        type="email"
                         id="email"
                         value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3.5 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all font-medium shadow-inner"
                         placeholder="your.email@example.com"
                       />
@@ -450,10 +450,10 @@ export default function OnlineClassesContent() {
                     <div className="space-y-2">
                       <label htmlFor="course" className="text-sm font-bold text-slate-200">Select Program</label>
                       <div className="relative">
-                        <select 
+                        <select
                           id="course"
                           value={formData.course}
-                          onChange={(e) => setFormData({...formData, course: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, course: e.target.value })}
                           className="w-full bg-slate-800 border border-slate-600 rounded-xl pl-4 pr-10 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all font-medium appearance-none shadow-inner"
                         >
                           <option value="data">Data Analytics Program</option>
@@ -465,7 +465,7 @@ export default function OnlineClassesContent() {
                       </div>
                     </div>
 
-                    <button 
+                    <button
                       type="submit"
                       disabled={isSubmitting}
                       className="w-full py-4 mt-6 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 text-white font-bold text-lg hover:shadow-[0_0_25px_rgba(34,211,238,0.4)] hover:scale-[1.02] transition-all transform flex items-center justify-center gap-2 border border-cyan-400 disabled:opacity-70 disabled:pointer-events-none"
@@ -489,12 +489,12 @@ export default function OnlineClassesContent() {
       <footer className="border-t border-white/10 bg-slate-900 py-12 relative z-10 mt-12 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
           <div className="flex items-center gap-3 mb-6">
-             <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-               A
-             </div>
-             <h2 className="text-xl font-black tracking-wider text-transparent bg-clip-text inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
-               AISOFT
-             </h2>
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+              A
+            </div>
+            <h2 className="text-xl font-black tracking-wider text-transparent bg-clip-text inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
+              AISOFT
+            </h2>
           </div>
           <p className="text-slate-300 text-sm text-center max-w-xl mx-auto mb-8 font-medium leading-relaxed">
             Empowering the next generation of tech professionals. In strategic collaboration with <span className="text-cyan-300 font-bold">VC Tech</span>, <span className="text-purple-300 font-bold">Talent Computers</span>, and <span className="text-blue-300 font-bold">Digital Videos</span>.
