@@ -30,7 +30,7 @@ import {
 
 export default function RealEstateContent() {
   const [lang, setLang] = useState<Language>('en');
-  const [showBuyers, setShowBuyers] = useState(false);
+  const [showBuyers, setShowBuyers] = useState(true);
   const [searchMember, setSearchMember] = useState("");
   const [membershipHeaders, setMembershipHeaders] = useState<string[]>([]);
   const [membershipData, setMembershipData] = useState<string[][]>([]);
@@ -75,7 +75,7 @@ export default function RealEstateContent() {
           .map(r => r.slice(0, lastValidIdx + 1))
           .filter(r => r[0] && r[0].length > 0);
           
-        const forbiddenCols = ["cell", "refer", "amount"];
+        const forbiddenCols = ["cell", "refer", "amount", "valid", "date"];
         const allowedIndices = headers.map((h, i) => !forbiddenCols.some(f => h.toLowerCase().includes(f)) ? i : -1).filter(i => i !== -1);
         
         headers = allowedIndices.map(i => headers[i]);
@@ -396,35 +396,109 @@ export default function RealEstateContent() {
                   Loading secure fast live sheet...
                 </div>
               ) : (
-                <table className="w-full text-left border-collapse relative min-w-[800px]">
-                  <thead className="sticky top-0 bg-slate-100 z-10 shadow-sm border-b border-slate-200">
-                    <tr>
-                      {membershipHeaders.map((header, idx) => (
-                        <th key={idx} className="p-4 font-bold text-slate-800 uppercase text-xs tracking-wider whitespace-nowrap">
-                          {header.replace(/ *\n */g, " ").trim() || `COL ${idx + 1}`}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 text-left p-6 bg-slate-100/50">
                     {membershipData
                       .filter(row => row.some(cell => typeof cell === 'string' && cell.toLowerCase().includes(searchMember.toLowerCase())))
-                      .map((row, rowIdx) => (
-                      <tr key={rowIdx} className="border-b border-slate-100 last:border-0 hover:bg-emerald-50 transition-colors">
-                        {membershipHeaders.map((_, colIdx) => (
-                          <td key={colIdx} className={`p-4 text-sm whitespace-nowrap ${colIdx === 1 || colIdx === 3 ? 'font-bold text-emerald-900' : 'text-slate-600 font-medium'}`}>
-                            {row[colIdx] ? row[colIdx].trim() : '-'}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                    {membershipData.filter(row => row.some(cell => typeof cell === 'string' && cell.toLowerCase().includes(searchMember.toLowerCase()))).length === 0 && (
-                      <tr>
-                        <td colSpan={membershipHeaders.length} className="py-12 text-center text-slate-500 italic">No records found matching "{searchMember}".</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+                      .map((row, rowIdx) => {
+                          const findCell = (keywords: string[]) => {
+                            const idx = membershipHeaders.findIndex(h => keywords.some(kw => h.toLowerCase().includes(kw)));
+                            return idx !== -1 ? { label: membershipHeaders[idx], value: row[idx], idx } : null;
+                          };
+            
+                          const nameField = findCell(['name', 'first', 'full']);
+                          const idField = findCell(['id', 'coupon', 'number']);
+                          const statusField = findCell(['status', 'state']);
+                          
+                          // collect remaining fields
+                          const fieldsToHide = ['amount', 'cel', 'cell', 'valid', 'date', 'created'];
+                          const prominentIndices = [nameField?.idx, idField?.idx, statusField?.idx];
+                          const otherFields = membershipHeaders
+                            .map((h, i) => ({ label: h, value: row[i], idx: i }))
+                            .filter(f => !prominentIndices.includes(f.idx) && f.value && f.value.trim() !== '' && !fieldsToHide.some(hid => f.label.toLowerCase().includes(hid)));
+            
+                          const isAvailable = !nameField?.value || nameField.value.trim() === '' || nameField.value.toLowerCase().includes('available');
+            
+                          return (
+                            <div key={rowIdx} className="relative rounded-2xl p-[1px] bg-gradient-to-br from-yellow-300 via-amber-600 to-yellow-800 shadow-[0_10px_30px_rgba(218,165,32,0.15)] group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(218,165,32,0.3)] transition-all duration-300">
+                              <div className="relative rounded-[15px] h-full p-6 bg-[linear-gradient(135deg,#064e3b_0%,#022c22_50%,#000000_100%)] overflow-hidden flex flex-col font-sans">
+                                
+                                {/* Decorative Background Elements */}
+                                <div className="absolute inset-0 bg-white/5 bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:16px_16px] opacity-10 mix-blend-overlay pointer-events-none"></div>
+                                <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/20 rounded-full blur-[50px] -mr-16 -mt-16 pointer-events-none z-0"></div>
+                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-[40px] pointer-events-none z-0"></div>
+                                
+                                {/* Header: Lucky Coupon Logo */}
+                                <div className="flex justify-between items-start mb-6 z-10 relative">
+                                   <span className="text-[11px] font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600 tracking-[0.2em] uppercase drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]">Lucky Coupon</span>
+                                   <div className="flex flex-col items-end">
+                                     <span className="italic font-black text-xl text-emerald-50 tracking-wider">VK Group</span>
+                                     <span className="text-[8px] text-[#D4AF37] uppercase tracking-widest font-black">Membership</span>
+                                   </div>
+                                </div>
+            
+                                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent mb-6 z-10 relative"></div>
+            
+                                {/* Main ID / Card Number */}
+                                <div className="text-3xl md:text-4xl font-black tracking-widest mb-6 text-transparent bg-clip-text bg-gradient-to-br from-yellow-100 via-yellow-300 to-amber-600 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] z-10 relative text-center">
+                                   {idField?.value || '#### ####'}
+                                </div>
+            
+                                {isAvailable ? (
+                                   <div className="flex-1 flex items-center justify-center my-4 z-10 relative bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-xl p-4 backdrop-blur-sm shadow-inner">
+                                      <span className="text-yellow-400 font-extrabold uppercase tracking-widest text-sm animate-pulse text-center leading-relaxed drop-shadow-md">Available for<br/>Purchase</span>
+                                   </div>
+                                ) : (
+                                  <>
+                                    {/* Name Row */}
+                                    <div className="flex justify-center items-center gap-4 z-10 relative mb-5">
+                                       <div className="flex-1 min-w-0 text-center">
+                                          <div className="text-[9px] text-[#D4AF37] opacity-80 uppercase tracking-[0.2em] mb-1 font-bold">{nameField?.label || 'Cardholder Name'}</div>
+                                          <div className="font-extrabold text-xl tracking-widest uppercase whitespace-normal break-words leading-snug text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{nameField?.value || 'UNKNOWN MEMBER'}</div>
+                                       </div>
+                                    </div>
+            
+                                    {/* Status Badge */}
+                                    {statusField && (
+                                      <div className="z-10 relative mb-4 text-center">
+                                        <span className={`inline-block px-4 py-1.5 text-[10px] font-black rounded-lg uppercase tracking-widest shadow-md ${
+                                          statusField.value?.toLowerCase().includes('active') || statusField.value?.toLowerCase() === 'yes'
+                                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-[0_0_10px_rgba(16,185,129,0.2)]' 
+                                            : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                                        }`}>
+                                          {statusField.label}: {statusField.value}
+                                        </span>
+                                      </div>
+                                    )}
+                                  </>
+                                )}
+            
+                                {/* Other Fields */}
+                                {otherFields.length > 0 && (
+                                  <div className="mt-auto pt-5 border-t border-[#D4AF37]/20 flex flex-wrap justify-center gap-2.5 z-10 relative">
+                                    {otherFields.map((f, i) => {
+                                       const isMarble = f.label.toLowerCase().includes('s.no') || f.label.toLowerCase().includes('serial') || f.label.toLowerCase().includes('place');
+                                       
+                                       return (
+                                         <div key={i} className={`px-3 py-1.5 rounded-md flex items-center gap-1.5 ${isMarble ? 'bg-white/5 border border-white/10 shadow-inner' : 'bg-black/30 border border-[#D4AF37]/20'} transition-colors`}>
+                                            <span className={`${isMarble ? 'text-[#e0dcd3]' : 'text-[#cfa453]'} opacity-80 uppercase tracking-[0.15em] text-[9px] font-bold`}>
+                                              {f.label.length > 15 ? f.label.slice(0,15)+'...' : f.label}:
+                                            </span> 
+                                            <span className={`${isMarble ? 'text-white font-serif italic text-sm tracking-wide drop-shadow-md font-medium' : 'text-[#f5d996] font-medium text-xs font-sans'}`}>
+                                              {f.value || '-'}
+                                            </span>
+                                         </div>
+                                       );
+                                    })}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          );
+                      })}
+                      {membershipData.filter(row => row.some(cell => typeof cell === 'string' && cell.toLowerCase().includes(searchMember.toLowerCase()))).length === 0 && (
+                        <div className="col-span-full py-12 text-center text-slate-500 italic">No records found matching "{searchMember}".</div>
+                      )}
+                </div>
               )}
             </div>
           </div>
