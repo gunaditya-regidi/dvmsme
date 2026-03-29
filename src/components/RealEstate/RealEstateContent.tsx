@@ -25,7 +25,8 @@ import {
   Search,
   FileSpreadsheet,
   Minimize2,
-  Maximize2
+  Maximize2,
+  Scissors
 } from 'lucide-react';
 
 export default function RealEstateContent() {
@@ -396,7 +397,8 @@ export default function RealEstateContent() {
                   Loading secure fast live sheet...
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 text-left p-6 bg-slate-100/50">
+                <div className="overflow-x-hidden pb-8 flex justify-center">
+                  <div className="flex flex-col gap-6 text-left p-2 md:p-6 bg-slate-100/50 w-full min-w-[340px] max-w-[1000px] mx-auto">
                     {membershipData
                       .filter(row => row.some(cell => typeof cell === 'string' && cell.toLowerCase().includes(searchMember.toLowerCase())))
                       .map((row, rowIdx) => {
@@ -419,85 +421,148 @@ export default function RealEstateContent() {
                           const isAvailable = !nameField?.value || nameField.value.trim() === '' || nameField.value.toLowerCase().includes('available');
             
                           return (
-                            <div key={rowIdx} className="relative rounded-2xl p-[1px] bg-gradient-to-br from-yellow-300 via-amber-600 to-yellow-800 shadow-[0_10px_30px_rgba(218,165,32,0.15)] group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(218,165,32,0.3)] transition-all duration-300">
-                              <div className="relative rounded-[15px] h-full p-6 bg-[linear-gradient(135deg,#064e3b_0%,#022c22_50%,#000000_100%)] overflow-hidden flex flex-col font-sans">
-                                
-                                {/* Decorative Background Elements */}
-                                <div className="absolute inset-0 bg-white/5 bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:16px_16px] opacity-10 mix-blend-overlay pointer-events-none"></div>
-                                <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/20 rounded-full blur-[50px] -mr-16 -mt-16 pointer-events-none z-0"></div>
-                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-[40px] pointer-events-none z-0"></div>
-                                
-                                {/* Header: Lucky Coupon Logo */}
-                                <div className="flex justify-between items-start mb-6 z-10 relative">
-                                   <span className="text-[11px] font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600 tracking-[0.2em] uppercase drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]">Lucky Coupon</span>
-                                   <div className="flex flex-col items-end">
-                                     <span className="italic font-black text-xl text-emerald-50 tracking-wider">VK Group</span>
-                                     <span className="text-[8px] text-[#D4AF37] uppercase tracking-widest font-black">Membership</span>
-                                   </div>
-                                </div>
-            
-                                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent mb-6 z-10 relative"></div>
-            
-                                {/* Main ID / Card Number */}
-                                <div className="text-3xl md:text-4xl font-black tracking-widest mb-6 text-transparent bg-clip-text bg-gradient-to-br from-yellow-100 via-yellow-300 to-amber-600 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] z-10 relative text-center">
-                                   {idField?.value || '#### ####'}
-                                </div>
-            
-                                {isAvailable ? (
-                                   <div className="flex-1 flex items-center justify-center my-4 z-10 relative bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-xl p-4 backdrop-blur-sm shadow-inner">
-                                      <span className="text-yellow-400 font-extrabold uppercase tracking-widest text-sm animate-pulse text-center leading-relaxed drop-shadow-md">Available for<br/>Purchase</span>
-                                   </div>
-                                ) : (
-                                  <>
-                                    {/* Name Row */}
-                                    <div className="flex justify-center items-center gap-4 z-10 relative mb-5">
-                                       <div className="flex-1 min-w-0 text-center">
-                                          <div className="text-[9px] text-[#D4AF37] opacity-80 uppercase tracking-[0.2em] mb-1 font-bold">{nameField?.label || 'Cardholder Name'}</div>
-                                          <div className="font-extrabold text-xl tracking-widest uppercase whitespace-normal break-words leading-snug text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{nameField?.value || 'UNKNOWN MEMBER'}</div>
-                                       </div>
+                            <div key={rowIdx} className="w-full min-h-[100px] md:min-h-[160px] flex flex-row rounded-lg overflow-hidden shadow-xl group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 font-sans border-2 border-yellow-400 shrink-0">
+  
+                              {/* Left Section (Green) */}
+                              <div className="flex-1 bg-[#127242] p-1 md:p-2 relative flex flex-col justify-between overflow-hidden">
+                                {/* Background Pattern/Flourishes */}
+                                <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl -mr-16 -mt-16 z-0 pointer-events-none"></div>
+
+                                {/* Header */}
+                                <div className="relative z-10 w-full mb-0.5">
+                                  <div className="flex justify-between items-start">
+                                    <div className="font-bold text-white text-[6px] md:text-[10px] uppercase leading-tight whitespace-nowrap">
+                                      VK GROUP <br/> <span className="text-[5px] md:text-[8px] font-normal">PRESENTS</span>
                                     </div>
-            
-                                    {/* Status Badge */}
-                                    {statusField && (
-                                      <div className="z-10 relative mb-4 text-center">
-                                        <span className={`inline-block px-4 py-1.5 text-[10px] font-black rounded-lg uppercase tracking-widest shadow-md ${
-                                          statusField.value?.toLowerCase().includes('active') || statusField.value?.toLowerCase() === 'yes'
-                                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-[0_0_10px_rgba(16,185,129,0.2)]' 
-                                            : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
-                                        }`}>
-                                          {statusField.label}: {statusField.value}
-                                        </span>
-                                      </div>
-                                    )}
-                                  </>
-                                )}
-            
-                                {/* Other Fields */}
-                                {otherFields.length > 0 && (
-                                  <div className="mt-auto pt-5 border-t border-[#D4AF37]/20 flex flex-wrap justify-center gap-2.5 z-10 relative">
-                                    {otherFields.map((f, i) => {
-                                       const isMarble = f.label.toLowerCase().includes('s.no') || f.label.toLowerCase().includes('serial') || f.label.toLowerCase().includes('place');
-                                       
-                                       return (
-                                         <div key={i} className={`px-3 py-1.5 rounded-md flex items-center gap-1.5 ${isMarble ? 'bg-white/5 border border-white/10 shadow-inner' : 'bg-black/30 border border-[#D4AF37]/20'} transition-colors`}>
-                                            <span className={`${isMarble ? 'text-[#e0dcd3]' : 'text-[#cfa453]'} opacity-80 uppercase tracking-[0.15em] text-[9px] font-bold`}>
-                                              {f.label.length > 15 ? f.label.slice(0,15)+'...' : f.label}:
-                                            </span> 
-                                            <span className={`${isMarble ? 'text-white font-serif italic text-sm tracking-wide drop-shadow-md font-medium' : 'text-[#f5d996] font-medium text-xs font-sans'}`}>
-                                              {f.value || '-'}
-                                            </span>
-                                         </div>
-                                       );
-                                    })}
+                                    <div className="flex-1 text-center">
+                                      <span className="text-white text-[10px] md:text-xl font-serif italic drop-shadow-md pb-0.5 whitespace-nowrap inline-block">
+                                        Sandal Vally Farm Land
+                                      </span>
+                                    </div>
                                   </div>
+                                  
+                      <div className="mt-0.5 text-yellow-400 font-black text-[10px] md:text-2xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide whitespace-nowrap flex items-baseline gap-1 md:gap-2">
+                        <span>PAY RS. 10000/- ONLY</span>
+                      </div>
+                    </div>
+
+                    {/* Body with Form Fields */}
+                    <div className="flex flex-row gap-1 md:gap-2 relative z-10 w-full items-center my-1 justify-between">
+                      {/* Left Block: Gift Coupon & Blue Box */}
+                      <div className="flex flex-col items-start gap-1 shrink-0">
+                        <span className="text-pink-400 font-black text-[10px] md:text-xl lg:text-2xl uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] leading-none">Gift Coupon</span>
+                        <div className="flex flex-col items-center justify-center border md:border-2 border-blue-600 bg-blue-900 w-[50px] md:w-[80px] lg:w-[100px] rounded md:rounded-lg p-0.5 md:p-1 shadow-xl">
+                           <span className="text-yellow-400 font-extrabold text-[5px] md:text-xs uppercase md:mb-[-4px]">Free</span>
+                           <span className="text-yellow-400 font-black text-[14px] md:text-3xl leading-none drop-shadow-[1px_1px_0px_rgba(0,0,0,1)] md:drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">100</span>
+                           <span className="text-white text-[4px] md:text-[8px] uppercase text-center font-bold leading-tight mt-0.5 md:mt-1 whitespace-nowrap">SY.YDS FARM LAND</span>
+                           <span className="text-yellow-300 text-[3px] md:text-[6px] uppercase font-bold text-center leading-tight mt-0.5 whitespace-nowrap shadow-black drop-shadow-md">A chance to win...</span>
+                        </div>
+                      </div>
+
+                      {/* Middle Block: Be a member text & Name */}
+                      <div className="flex flex-col items-center justify-center flex-1 mx-1 md:mx-2 gap-1 md:gap-2 overflow-hidden">
+                        <span className="text-white font-black text-[6px] md:text-sm lg:text-lg uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-center whitespace-nowrap">Be a member - win a site</span>
+                        <div className="flex items-center justify-center w-full mt-0.5 md:mt-1">
+                           <label className="text-white text-[8px] md:text-xl font-black mr-1 md:mr-2 drop-shadow-md">Name:</label>
+                           <div className="bg-white text-black font-black px-1.5 md:px-4 py-0.5 md:py-1.5 rounded-sm text-[6px] md:text-sm lg:text-lg truncate uppercase shadow-inner min-w-[60px] md:min-w-[160px] max-w-[120px] md:max-w-[200px] text-center flex-1">
+                              {!isAvailable ? (nameField?.value || 'UNKNOWN MEMBER') : <span className="text-slate-400">AVAILABLE</span>}
+                           </div>
+                        </div>
+                      </div>
+
+                      {/* Right Block: Image */}
+                      <div className="flex flex-col items-center justify-center flex-shrink-0">
+                         <div className="w-12 h-8 md:w-24 md:h-16 lg:w-32 lg:h-20 bg-green-900 border md:border-2 border-white/30 rounded-md md:rounded-lg overflow-hidden relative shadow-inner">
+                            <div className="absolute inset-0 opacity-40 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+                            <img src="/images/rab/1.jpeg" alt="Farm" className="w-full h-full object-cover opacity-80" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                         </div>
+                      </div>
+                    </div>
+
+                                {/* Footer */}
+                                <div className="flex flex-row justify-between items-end mt-auto relative z-10 gap-1 whitespace-nowrap border-t border-white/20 pt-1 md:pt-1.5">
+                                  <div className="text-white text-[4px] md:text-[8px] space-y-0.5 md:space-y-1 font-medium shrink-0 flex flex-col justify-end pb-0.5 pl-1 max-w-[45%] md:max-w-[50%]">
+                                     <p>1. GET A FREE GIFT WORTH RS.2500/- FOR EVERY COUPON.</p>
+                                     <p>2. GET A FREE REDEEM COUPON WORTH RS. 10000/-</p>
+                                  </div>
+                                  <div className="flex items-center text-white shrink-0 pr-0.5 md:pr-1 pb-0.5 md:pb-1 gap-1 md:gap-3">
+                                     {statusField?.value && statusField.value.trim() !== '' && (
+                                        <span className={`px-1 md:px-2 py-0.5 md:py-1 rounded-sm text-[5px] md:text-[10px] font-black uppercase tracking-wider shadow-sm border border-white/20 ${
+                                           statusField.value.toLowerCase().includes('available') ? 'bg-blue-600 text-white' :
+                                           statusField.value.toLowerCase().includes('hold') ? 'bg-amber-500 text-black' :
+                                           'bg-red-600 text-white'
+                                        }`}>
+                                           {statusField.value}
+                                        </span>
+                                     )}
+                                     <div className="flex items-center">
+                                        <span className="font-black text-[6px] md:text-[12px] mr-1 md:mr-2 drop-shadow-md">TKT NO:</span> 
+                                        <span className="bg-green-300 text-green-950 px-2 md:px-5 py-0.5 md:py-1.5 rounded-full font-black text-[8px] md:text-base text-center shadow-inner inline-block min-w-[40px] md:min-w-[80px]">
+                                          {idField?.value || '####'}
+                                        </span>
+                                     </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Separator */}
+                              <div className="w-2 md:w-8 shrink-0 bg-yellow-400 flex flex-col items-center justify-center border-x-[1px] md:border-x-[2px] border-dashed border-black">
+                                <Scissors className="w-2 h-2 md:w-4 md:h-4 text-black" />
+                              </div>
+
+                              {/* Right Section (Blue/Purple) */}
+                              <div className="w-[100px] md:w-[150px] lg:w-[190px] bg-[#291ba8] p-1 md:p-3 flex flex-col justify-between text-white shrink-0 border-l border-white/20 relative z-10 overflow-hidden">
+                                <div className="text-center space-y-0.5 relative z-10">
+                                  <div className="font-bold text-white text-[5px] md:text-[8px] lg:text-[10px] uppercase leading-tight">
+                                    VK GROUP <br/> <span className="text-[4px] md:text-[6px] lg:text-[8px] font-normal tracking-widest">PRESENTS</span>
+                                  </div>
+                                  <div className="text-white text-[5px] md:text-[8px] lg:text-[10px] font-serif italic drop-shadow-md whitespace-nowrap mt-0.5 md:mt-1">
+                                    Sandal Vally Farm Land
+                                  </div>
+                                  <div className="text-yellow-400 font-extrabold text-[6px] md:text-[10px] lg:text-[12px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] leading-tight mt-0.5 whitespace-nowrap">
+                                    PAY RS. 10000/- ONLY
+                                  </div>
+                                  <div className="text-white text-[4px] md:text-[6px] lg:text-[8px] font-bold uppercase flex flex-col items-center mt-0.5">
+                                    <span>Be a member - win a site</span>
+                                    <span className="text-pink-400 text-[5px] md:text-[8px] lg:text-[10px] mt-0.5 font-black drop-shadow-md whitespace-nowrap">GIFT COUPON</span>
+                                  </div>
+                                </div>
+
+                                <div className="bg-pink-400 text-black p-0.5 md:p-1.5 rounded-sm text-[4px] md:text-[6px] lg:text-[8px] font-extrabold space-y-0.5 md:space-y-1.5 leading-tight my-1 md:my-2 shadow-inner relative z-10 whitespace-normal text-left">
+                                  <p className="border-b border-black/10 pb-0.5 md:pb-1">1. GET A FREE GIFT WORTH RS.2500/- FOR EVERY COUPON.</p>
+                                  <p>2. GET A FREE REDEEM COUPON WORTH RS. 10000/- FOR EACH COUPON</p>
+                                </div>
+
+                                <div className="flex items-center font-black text-[5px] md:text-[9px] lg:text-[11px] justify-start mt-0.5 md:mt-1 gap-1 md:gap-2 relative z-10">
+                                  <span className="drop-shadow-md shrink-0">TKT NO:</span> 
+                                  <span className="bg-white text-gray-800 px-1 md:px-3 py-0.5 md:py-1 rounded-full shadow-inner flex-1 text-center font-black tracking-wider text-[6px] md:text-[10px] lg:text-sm min-w-[30px] md:min-w-[60px]">
+                                    {idField?.value || '####'}
+                                  </span>
+                                </div>
+
+                                {statusField?.value && statusField.value.trim() !== '' && (
+                                    <div className="text-center mt-1 md:mt-1.5 relative z-10">
+                                       <span className={`px-1 md:px-2 py-[1px] md:py-0.5 rounded text-[4px] md:text-[6px] lg:text-[8px] font-bold uppercase tracking-wider shadow-sm border border-white/20 ${
+                                           statusField.value.toLowerCase().includes('available') ? 'bg-blue-600 text-white' :
+                                           statusField.value.toLowerCase().includes('hold') ? 'bg-amber-500 text-black' :
+                                           'bg-red-600 text-white'
+                                       }`}>
+                                           {statusField.value}
+                                       </span>
+                                    </div>
                                 )}
+
+                                <div className="text-center mt-1 md:mt-2 relative z-10">
+                                   <div className="text-[4px] md:text-[6px] font-bold uppercase opacity-70 text-center tracking-widest border-t border-white/20 pt-1 md:pt-1.5">Terms & Conditions Apply</div>
+                                </div>
                               </div>
                             </div>
                           );
                       })}
                       {membershipData.filter(row => row.some(cell => typeof cell === 'string' && cell.toLowerCase().includes(searchMember.toLowerCase()))).length === 0 && (
-                        <div className="col-span-full py-12 text-center text-slate-500 italic">No records found matching "{searchMember}".</div>
+                        <div className="w-full py-12 text-center text-slate-500 italic">No records found matching "{searchMember}".</div>
                       )}
+                </div>
                 </div>
               )}
             </div>
