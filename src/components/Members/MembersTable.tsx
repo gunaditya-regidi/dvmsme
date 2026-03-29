@@ -127,11 +127,11 @@ export default function MembersTable({ headers, data }: Props) {
                       </div>
 
                       {/* Middle Block: Be a member text & Name */}
-                      <div className="flex flex-col items-center justify-center flex-1 mx-1 md:mx-2 gap-1 md:gap-2 overflow-hidden">
-                        <span className="text-white font-black text-[6px] md:text-sm lg:text-lg uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-center whitespace-nowrap">Be a member - win a site</span>
+                      <div className="flex flex-col items-center justify-center flex-1 mx-1 md:mx-2 gap-1 md:gap-2 min-w-0">
+                        <span className="text-white font-black text-[7px] md:text-sm lg:text-lg uppercase tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-center leading-[1.1] w-full">Be a member - win a site</span>
                         <div className="flex items-center justify-center w-full mt-0.5 md:mt-1">
                            <label className="text-white text-[8px] md:text-xl font-black mr-1 md:mr-2 drop-shadow-md shrink-0 whitespace-nowrap">Name:</label>
-                           <div className="bg-white text-black font-black px-1.5 md:px-4 py-0.5 md:py-1.5 rounded-sm text-[6px] md:text-sm lg:text-lg uppercase shadow-inner min-w-[60px] md:min-w-[160px] w-full text-center flex-1 break-words whitespace-normal leading-tight">
+                           <div className="bg-white text-black font-black px-1 md:px-4 py-0.5 md:py-1.5 rounded-sm text-[7px] md:text-sm lg:text-lg uppercase shadow-inner min-w-0 md:min-w-[160px] w-full text-center flex-1 break-words whitespace-normal leading-tight">
                               {!isAvailable ? (nameField?.value || 'UNKNOWN MEMBER') : <span className="text-slate-400">AVAILABLE</span>}
                            </div>
                         </div>
