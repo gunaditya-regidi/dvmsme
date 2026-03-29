@@ -227,6 +227,7 @@ export default function MembersTable({ headers, data }: Props) {
               );
             })}
           </div>
+        </div>
         ) : (
           <div className="bg-white dark:bg-gray-900/60 backdrop-blur-xl rounded-3xl p-16 border border-gray-200 dark:border-gray-800 text-center shadow-lg">
             <div className="flex flex-col items-center justify-center">
