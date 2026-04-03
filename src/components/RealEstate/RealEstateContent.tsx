@@ -326,6 +326,23 @@ export default function RealEstateContent() {
         </div>
       )}
 
+      {/* NEW: YOUTUBE PROMO VIDEO */}
+      <section className="py-8 px-4 max-w-5xl mx-auto relative z-20">
+        <h2 className="text-3xl md:text-5xl font-bold text-center text-slate-800 mb-8">Watch Our Sandal Valley Film</h2>
+        <div className="rounded-3xl overflow-hidden shadow-2xl border-[4px] border-amber-500/50 aspect-video flex justify-center items-center bg-black">
+          <iframe 
+            width="100%" 
+            height="100%" 
+            src="https://www.youtube.com/embed/U4P_FNIn9Vg?si=zOgoMDgCBXeJgSa2" 
+            title="Promotional Video" 
+            frameBorder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerPolicy="strict-origin-when-cross-origin" 
+            allowFullScreen
+          ></iframe>
+        </div>
+      </section>
+
       {/* 3. MEMBERSHIP OFFER */}
       <section className="py-24 px-4 max-w-6xl mx-auto">
         <div className="text-center mb-16">
