@@ -15,7 +15,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
   if (!project) {
     return notFound();
   }
-  
+
   return (
     <div className="w-full bg-white dark:bg-[#0a0a0a] min-h-screen pt-20 pb-24 text-zinc-900 dark:text-zinc-100">
       <div className="container mx-auto px-4">
@@ -23,7 +23,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
           <ArrowLeft size={20} />
           Back to Projects
         </Link>
-        
+
         {/* Header Section */}
         <div className="lg:flex justify-between items-start mb-8 gap-8">
           <div>
@@ -41,7 +41,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
               <span>{project.address}</span>
             </div>
           </div>
-          
+
           <div className="mt-6 lg:mt-0 lg:text-right hidden sm:block">
             <p className="text-sm text-zinc-500 font-semibold uppercase tracking-wider mb-1">Price</p>
             <p className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">{project.price}</p>
@@ -99,11 +99,11 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
             <div className="sticky top-28 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)] block">
               <h3 className="text-xl font-bold mb-2">Interested in this property?</h3>
               <p className="text-zinc-500 mb-8">Drop your details and our property experts will get back to you.</p>
-              
+
               <CallbackForm project={project} />
 
               <div className="mt-8 pt-8 border-t border-zinc-100 dark:border-zinc-800 flex flex-col gap-4">
-                <Link href="tel:+919876543210" className="flex items-center justify-center gap-2 w-full border border-zinc-200 dark:border-zinc-700 py-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors font-semibold">
+                <Link href="tel:+919848418582" className="flex items-center justify-center gap-2 w-full border border-zinc-200 dark:border-zinc-700 py-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors font-semibold">
                   <PhoneCall size={20} className="text-amber-500" />
                   Call Directly
                 </Link>

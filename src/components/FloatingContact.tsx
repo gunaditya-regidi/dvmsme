@@ -11,9 +11,9 @@ export default function FloatingContact() {
         Call Us Now
         <div className="absolute -bottom-1.5 left-6 w-3 h-3 bg-white dark:bg-zinc-800 rotate-45 border-b border-r border-zinc-100 dark:border-zinc-700"></div>
       </div>
-      
-      <Link 
-        href="tel:+919876543210" 
+
+      <Link
+        href="tel:+919848418582"
         className="relative flex items-center justify-center w-14 h-14 bg-gradient-to-tr from-amber-500 to-amber-300 text-white rounded-full shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:shadow-[0_0_30px_rgba(245,158,11,0.8)] hover:scale-110 transition-all duration-300"
       >
         {/* Pulsing rings */}
