@@ -9,6 +9,7 @@ import { DonationProvider } from "./context/donationContext";
 import { Metadata } from "next";
 const montserrat = Montserrat({ subsets: ["latin"] });
 import NextTopLoader from 'nextjs-toploader';
+import FloatingContact from "@/components/FloatingContact";
 
 export const metadata: Metadata = {
   title: {
@@ -34,6 +35,7 @@ export default function RootLayout({
             <Footer />
           </Aoscompo>
           <ScrollToTop />
+          <FloatingContact />
         </DonationProvider>
       </body>
     </html>

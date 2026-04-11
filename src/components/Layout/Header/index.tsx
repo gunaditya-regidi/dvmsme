@@ -20,7 +20,6 @@ const Header: React.FC = () => {
   const pathUrl = usePathname();
   const { theme, setTheme } = useTheme();
 
-  if (pathUrl === '/realestate' || pathUrl === '/online-classes') return null;
 
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
@@ -73,7 +72,7 @@ const Header: React.FC = () => {
   const donationInfo = useContext(DonationFormContext);
   const authDialog = useContext(AuthDialogContext);
 
-
+  if (pathUrl === '/realestate' || pathUrl === '/online-classes' || pathUrl?.startsWith('/infra-projects')) return null;
 
   return (
     <header

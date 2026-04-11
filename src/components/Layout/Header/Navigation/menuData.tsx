@@ -23,7 +23,8 @@ export const headerData: HeaderItem[] = [
     href: "/pricing",
     
   }, */
-  { label: "Real Estate", href: "/realestate" },
+  // { label: "Real Estate", href: "/realestate" },
+  { label: "Infra Projects", href: "/infra-projects" },
   { label: "Online Classes", href: "/online-classes" },
   { label: "Contact", href: "/contact" },
 ];
