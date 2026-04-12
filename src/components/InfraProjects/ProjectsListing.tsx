@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
-import { Search, MapPin, Building, ArrowRight, ArrowUpRight, Home, X } from 'lucide-react';
+import { Search, MapPin, Building, ArrowRight, ArrowUpRight, Home, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 
@@ -14,6 +14,20 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isListModalOpen, setIsListModalOpen] = useState(false);
   const [isSubmittingList, setIsSubmittingList] = useState(false);
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
 
   const displayProjects = initialProjects.length > 0 ? initialProjects : [];
 
@@ -89,7 +103,7 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
           {/* Replaced Text Title with Custom Logo/Title Image Placeholder */}
           <div className="relative w-full max-w-4xl h-32 md:h-56 mb-4 mt-4">
             <Image 
-              src="/images/logo/titleinf.jpeg" 
+              src="/images/logo/titleinf.png" 
               alt="బలే మంచి చౌకబేరం REAL ESTATE & PROPERTIES" 
               fill
               className="object-contain drop-shadow-2xl"
@@ -137,21 +151,40 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
             </button>
           </div>
           
-          {/* Categories */}
-          <div className="flex overflow-x-auto items-center gap-2 lg:gap-3 md:justify-center w-full pb-2 md:pb-0 px-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`whitespace-nowrap flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 shadow-sm ${
-                  selectedCategory === cat
-                    ? 'bg-gradient-to-r from-amber-600 to-amber-400 text-white shadow-md shadow-amber-500/20 border border-transparent'
-                    : 'bg-zinc-100 text-black dark:bg-zinc-800 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* Categories with Desktop Controls */}
+          <div className="relative group/scroll flex items-center justify-center w-full px-8 md:px-10">
+            <button 
+              onClick={scrollLeft}
+              className="absolute left-0 z-10 hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-white dark:bg-zinc-800 shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_rgba(0,0,0,0.5)] border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:text-amber-500 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-700"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <div 
+              ref={scrollContainerRef}
+              className="flex overflow-x-auto items-center gap-2 lg:gap-3 w-full pb-2 md:pb-0 px-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth md:mask-linear-gradient"
+            >
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`whitespace-nowrap flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 shadow-sm ${
+                    selectedCategory === cat
+                      ? 'bg-gradient-to-r from-amber-600 to-amber-400 text-white shadow-md shadow-amber-500/20 border border-transparent'
+                      : 'bg-zinc-100 text-black dark:bg-zinc-800 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+            <button 
+              onClick={scrollRight}
+              className="absolute right-0 z-10 hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-white dark:bg-zinc-800 shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_rgba(0,0,0,0.5)] border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:text-amber-500 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-700"
+              aria-label="Scroll right"
+            >
+              <ChevronRight size={20} />
+            </button>
           </div>
         </div>
       </div>
