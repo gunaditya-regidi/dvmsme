@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search, MapPin, Building, ArrowRight, ArrowUpRight, Home, X } from 'lucide-react';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
 
 import { Project } from '@/utils/fetchProjects';
 
@@ -12,6 +13,7 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isListModalOpen, setIsListModalOpen] = useState(false);
+  const [isSubmittingList, setIsSubmittingList] = useState(false);
 
   const displayProjects = initialProjects.length > 0 ? initialProjects : [];
 
@@ -27,11 +29,40 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
     return matchesSearch && matchesCategory;
   });
 
-  const handleListSubmit = (e: React.FormEvent) => {
+  const handleListSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // In a real app, this would send an API request
-    alert("Thank you! Our team will contact you shortly.");
-    setIsListModalOpen(false);
+    setIsSubmittingList(true);
+    const formData = new FormData(e.currentTarget);
+    
+    const data = {
+      name: formData.get('name'),
+      phone: formData.get('phone'),
+      _subject: `New Property Listing Request from ${formData.get('name')}`,
+      message: `A new user wants to list their property for ₹2999/3 Months.\n\nName: ${formData.get('name')}\nPhone Number: ${formData.get('phone')}`,
+      _captcha: "false"
+    };
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/talentcomputers2013@gmail.com", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      
+      if(response.ok) {
+        toast.success("Request sent successfully! Our team will contact you shortly.");
+        setIsListModalOpen(false);
+      } else {
+        toast.error("Failed to send request. Please try again.");
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again later.");
+    } finally {
+      setIsSubmittingList(false);
+    }
   };
 
   return (
@@ -107,15 +138,15 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
           </div>
           
           {/* Categories */}
-          <div className="flex flex-wrap items-center justify-center gap-2 lg:gap-3">
+          <div className="flex overflow-x-auto items-center gap-2 lg:gap-3 md:justify-center w-full pb-2 md:pb-0 px-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                className={`whitespace-nowrap flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 shadow-sm ${
                   selectedCategory === cat
-                    ? 'bg-gradient-to-r from-amber-600 to-amber-400 text-white shadow-md shadow-amber-500/20'
-                    : 'bg-white/10 text-zinc-200 hover:bg-white/20 border border-white/5'
+                    ? 'bg-gradient-to-r from-amber-600 to-amber-400 text-white shadow-md shadow-amber-500/20 border border-transparent'
+                    : 'bg-zinc-100 text-black dark:bg-zinc-800 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700'
                 }`}
               >
                 {cat}
@@ -234,6 +265,7 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
                 <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 ml-1">Your Name</label>
                 <input 
                   type="text" 
+                  name="name"
                   required
                   className="w-full px-4 py-3.5 rounded-xl bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 focus:border-amber-500 focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white outline-none"
                   placeholder="Enter your full name"
@@ -243,6 +275,7 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
                 <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 ml-1">Phone Number</label>
                 <input 
                   type="tel" 
+                  name="phone"
                   required
                   className="w-full px-4 py-3.5 rounded-xl bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 focus:border-amber-500 focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white outline-none"
                   placeholder="+91 9876543210"
@@ -250,9 +283,10 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
               </div>
               <button 
                 type="submit"
-                className="w-full bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 mt-4 text-lg"
+                disabled={isSubmittingList}
+                className="w-full bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 mt-4 text-lg disabled:opacity-70 flex justify-center items-center"
               >
-                Request Callback
+                {isSubmittingList ? 'Sending...' : 'Request Callback'}
               </button>
             </form>
           </div>
