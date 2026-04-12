@@ -1,21 +1,38 @@
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Search, MapPin, Building, ArrowRight, ArrowUpRight, Home } from 'lucide-react';
+import { Search, MapPin, Building, ArrowRight, ArrowUpRight, Home, X } from 'lucide-react';
 import Image from 'next/image';
 
 import { Project } from '@/utils/fetchProjects';
 
+const categories = ["All", "Villas", "Apartments", "Open Plots", "Farm Lands", "VMRDA Sites", "Commercial", "Residential"];
+
 export default function ProjectsListing({ initialProjects }: { initialProjects: Project[] }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [isListModalOpen, setIsListModalOpen] = useState(false);
 
   const displayProjects = initialProjects.length > 0 ? initialProjects : [];
 
-  const filteredProjects = displayProjects.filter((project) =>
-    project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.type.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProjects = displayProjects.filter((project) => {
+    const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          project.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          project.type.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesCategory = selectedCategory === "All" || 
+                            project.type.toLowerCase().includes(selectedCategory.toLowerCase()) || 
+                            project.name.toLowerCase().includes(selectedCategory.toLowerCase());
+                            
+    return matchesSearch && matchesCategory;
+  });
+
+  const handleListSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real app, this would send an API request
+    alert("Thank you! Our team will contact you shortly.");
+    setIsListModalOpen(false);
+  };
 
   return (
     <div className="w-full bg-white dark:bg-[#0a0a0a] min-h-screen text-zinc-900 dark:text-zinc-100 relative">
@@ -25,7 +42,7 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
         <span className="hidden sm:inline">Back to Home</span>
       </Link>
       {/* Hero Section */}
-      <div className="relative w-full h-[50vh] flex items-center justify-center overflow-hidden">
+      <div className="relative w-full min-h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image 
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
@@ -34,33 +51,77 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-white dark:to-[#0a0a0a] z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-white dark:to-[#0a0a0a] z-10" />
         </div>
         
-        <div className="relative z-20 text-center px-4 pt-20" data-aos="fade-up">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500 drop-shadow-lg mb-4">
-            RAB INFO and INFRA Projects
-          </h1>
-          <p className="text-xl md:text-2xl text-white/90 font-medium max-w-2xl mx-auto drop-shadow-md">
+        <div className="relative z-20 text-center px-4 pt-24 pb-20 flex flex-col items-center justify-center" data-aos="fade-up">
+          {/* Replaced Text Title with Custom Logo/Title Image Placeholder */}
+          <div className="relative w-full max-w-4xl h-32 md:h-56 mb-4 mt-4">
+            <Image 
+              src="/images/logo/titleinf.jpeg" 
+              alt="బలే మంచి చౌకబేరం REAL ESTATE & PROPERTIES" 
+              fill
+              className="object-contain drop-shadow-2xl"
+              priority
+              onError={(e) => {
+                // Fallback if image not found
+                e.currentTarget.style.display = 'none';
+                document.getElementById('fallback-title')!.style.display = 'block';
+              }}
+            />
+            <h1 id="fallback-title" className="hidden text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500 drop-shadow-lg leading-tight">
+              RAB INFO & INFRA Projects
+            </h1>
+          </div>
+          
+          <p className="text-xl md:text-2xl text-amber-50 font-medium max-w-2xl mx-auto drop-shadow-md mb-10">
             Discover our premium portfolio of real estate and infrastructure developments.
           </p>
+          
+          <div className="relative z-30 inline-block pointer-events-auto">
+            <button 
+              onClick={() => setIsListModalOpen(true)}
+              className="bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-white px-8 py-4 rounded-full font-bold text-lg md:text-xl transition-all shadow-[0_0_40px_rgba(245,158,11,0.5)] hover:shadow-[0_0_60px_rgba(245,158,11,0.7)] ring-4 ring-amber-500/30 hover:-translate-y-1"
+            >
+              List Your Property - ₹2999 / 3 Months
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Search Bar Section */}
-      <div className="container mx-auto px-4 -mt-10 relative z-30 mb-16">
-        <div className="max-w-3xl mx-auto bg-white/10 dark:bg-zinc-900/40 backdrop-blur-xl border border-white/20 dark:border-zinc-700/50 p-4 rounded-full shadow-2xl flex items-center gap-4 transition-all focus-within:ring-2 ring-amber-500/50">
-          <Search className="text-zinc-500 dark:text-zinc-400 ml-4" size={24} />
-          <input
-            type="text"
-            placeholder="Search by name, location, or type..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 bg-transparent border-none outline-none text-zinc-800 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 text-lg py-2"
-          />
-          <button className="bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-amber-500/30 flex items-center gap-2">
-            Search
-          </button>
+      {/* Search Bar & Filters Section */}
+      <div className="container mx-auto px-4 -mt-14 relative z-30 mb-16">
+        <div className="max-w-4xl mx-auto bg-white/10 dark:bg-zinc-900/60 backdrop-blur-xl border border-white/20 dark:border-zinc-700/50 p-6 rounded-3xl shadow-2xl transition-all focus-within:ring-2 ring-amber-500/50">
+          <div className="flex items-center gap-4 bg-white/5 rounded-full px-4 mb-6 border border-white/10 dark:border-zinc-700/30">
+            <Search className="text-zinc-400" size={24} />
+            <input
+              type="text"
+              placeholder="Search by name, location, or type..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="flex-1 bg-transparent border-none outline-none text-white placeholder-zinc-400 text-lg py-3"
+            />
+            <button className="bg-amber-500 hover:bg-amber-400 text-white px-6 py-2 rounded-full font-bold transition-all shadow-lg hidden sm:block my-2">
+              Search
+            </button>
+          </div>
+          
+          {/* Categories */}
+          <div className="flex flex-wrap items-center justify-center gap-2 lg:gap-3">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  selectedCategory === cat
+                    ? 'bg-gradient-to-r from-amber-600 to-amber-400 text-white shadow-md shadow-amber-500/20'
+                    : 'bg-white/10 text-zinc-200 hover:bg-white/20 border border-white/5'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -143,6 +204,60 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
           </div>
         )}
       </div>
+
+      {/* List Property Modal */}
+      {isListModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-zinc-900/80 backdrop-blur-sm">
+          <div 
+            className="bg-white dark:bg-zinc-900 rounded-3xl p-8 max-w-md w-full shadow-2xl relative border border-zinc-200 dark:border-zinc-800"
+            style={{ animation: 'fadeIn 0.3s ease-out' }}
+          >
+            <button 
+              onClick={() => setIsListModalOpen(false)}
+              className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 p-2 bg-zinc-100 dark:bg-zinc-800 rounded-full transition-colors"
+            >
+              <X size={20} />
+            </button>
+            <div className="pr-8">
+              <h3 className="text-2xl font-bold mb-1 text-zinc-900 dark:text-zinc-100">List Your Property</h3>
+              <p className="text-amber-600 dark:text-amber-500 font-extrabold text-lg mb-4">₹2999 <span className="text-sm font-medium text-zinc-500">for 3 Months</span></p>
+            </div>
+            
+            <div className="bg-amber-50/50 dark:bg-amber-900/10 p-4 rounded-2xl mb-6 border border-amber-100 dark:border-amber-900/30">
+              <p className="text-zinc-700 dark:text-zinc-300 text-sm leading-relaxed">
+                Our professional team will visit your property, take high-quality pictures, and collect all necessary data for uploading and marketing. <strong className="text-zinc-900 dark:text-zinc-100">Let us handle the hassle!</strong>
+              </p>
+            </div>
+            
+            <form onSubmit={handleListSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 ml-1">Your Name</label>
+                <input 
+                  type="text" 
+                  required
+                  className="w-full px-4 py-3.5 rounded-xl bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 focus:border-amber-500 focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white outline-none"
+                  placeholder="Enter your full name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 ml-1">Phone Number</label>
+                <input 
+                  type="tel" 
+                  required
+                  className="w-full px-4 py-3.5 rounded-xl bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 focus:border-amber-500 focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white outline-none"
+                  placeholder="+91 9876543210"
+                />
+              </div>
+              <button 
+                type="submit"
+                className="w-full bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 mt-4 text-lg"
+              >
+                Request Callback
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
