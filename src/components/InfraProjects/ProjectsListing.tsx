@@ -33,13 +33,13 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
 
   const filteredProjects = displayProjects.filter((project) => {
     const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          project.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          project.type.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesCategory = selectedCategory === "All" || 
-                            project.type.toLowerCase().includes(selectedCategory.toLowerCase()) || 
-                            project.name.toLowerCase().includes(selectedCategory.toLowerCase());
-                            
+      project.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.type.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory = selectedCategory === "All" ||
+      project.type.toLowerCase().includes(selectedCategory.toLowerCase()) ||
+      project.name.toLowerCase().includes(selectedCategory.toLowerCase());
+
     return matchesSearch && matchesCategory;
   });
 
@@ -47,7 +47,7 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
     e.preventDefault();
     setIsSubmittingList(true);
     const formData = new FormData(e.currentTarget);
-    
+
     const data = {
       name: formData.get('name'),
       phone: formData.get('phone'),
@@ -59,14 +59,14 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
     try {
       const response = await fetch("https://formsubmit.co/ajax/talentcomputers2013@gmail.com", {
         method: "POST",
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify(data)
       });
-      
-      if(response.ok) {
+
+      if (response.ok) {
         toast.success("Request sent successfully! Our team will contact you shortly.");
         setIsListModalOpen(false);
       } else {
@@ -89,24 +89,25 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
       {/* Hero Section */}
       <div className="relative w-full min-h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <Image 
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
-            alt="Infrastructure background" 
-            fill 
+          <Image
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            alt="Infrastructure background"
+            fill
             className="object-cover"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-white dark:to-[#0a0a0a] z-10" />
         </div>
-        
-        <div className="relative z-20 text-center px-4 pt-24 pb-20 flex flex-col items-center justify-center" data-aos="fade-up">
+
+        <div className="relative z-20 text-center px-4 pt-20 pb-16 flex flex-col items-center justify-center" data-aos="fade-up">
           {/* Replaced Text Title with Custom Logo/Title Image Placeholder */}
-          <div className="relative w-full max-w-4xl h-32 md:h-56 mb-4 mt-4">
-            <Image 
-              src="/images/logo/titleinf.png" 
-              alt="బలే మంచి చౌకబేరం REAL ESTATE & PROPERTIES" 
-              fill
-              className="object-contain drop-shadow-2xl"
+          <div className="relative w-full max-w-lg md:max-w-2xl lg:max-w-3xl mb-4 mt-2">
+            <Image
+              src="/images/logo/titleinf.png"
+              alt="బలే మంచి చౌకబేరం REAL ESTATE & PROPERTIES"
+              width={800}
+              height={300}
+              className="w-full h-auto object-contain drop-shadow-2xl"
               priority
               onError={(e) => {
                 // Fallback if image not found
@@ -118,13 +119,13 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
               RAB INFO & INFRA Projects
             </h1>
           </div>
-          
+
           <p className="text-xl md:text-2xl text-amber-50 font-medium max-w-2xl mx-auto drop-shadow-md mb-10">
             Discover our premium portfolio of real estate and infrastructure developments.
           </p>
-          
+
           <div className="relative z-30 inline-block pointer-events-auto">
-            <button 
+            <button
               onClick={() => setIsListModalOpen(true)}
               className="bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-white px-8 py-4 rounded-full font-bold text-lg md:text-xl transition-all shadow-[0_0_40px_rgba(245,158,11,0.5)] hover:shadow-[0_0_60px_rgba(245,158,11,0.7)] ring-4 ring-amber-500/30 hover:-translate-y-1"
             >
@@ -150,17 +151,17 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
               Search
             </button>
           </div>
-          
+
           {/* Categories with Desktop Controls */}
           <div className="relative group/scroll flex items-center justify-center w-full px-8 md:px-10">
-            <button 
+            <button
               onClick={scrollLeft}
               className="absolute left-0 z-10 hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-white dark:bg-zinc-800 shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_rgba(0,0,0,0.5)] border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:text-amber-500 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-700"
               aria-label="Scroll left"
             >
               <ChevronLeft size={20} />
             </button>
-            <div 
+            <div
               ref={scrollContainerRef}
               className="flex overflow-x-auto items-center gap-2 lg:gap-3 w-full pb-2 md:pb-0 px-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth md:mask-linear-gradient"
             >
@@ -168,17 +169,16 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`whitespace-nowrap flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 shadow-sm ${
-                    selectedCategory === cat
+                  className={`whitespace-nowrap flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 shadow-sm ${selectedCategory === cat
                       ? 'bg-gradient-to-r from-amber-600 to-amber-400 text-white shadow-md shadow-amber-500/20 border border-transparent'
                       : 'bg-zinc-100 text-black dark:bg-zinc-800 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700'
-                  }`}
+                    }`}
                 >
                   {cat}
                 </button>
               ))}
             </div>
-            <button 
+            <button
               onClick={scrollRight}
               className="absolute right-0 z-10 hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-white dark:bg-zinc-800 shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_rgba(0,0,0,0.5)] border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:text-amber-500 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-700"
               aria-label="Scroll right"
@@ -202,7 +202,7 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, idx) => (
               <Link href={`/infra-projects/${project.id}`} key={project.id}>
-                <div 
+                <div
                   className="group rounded-3xl overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
                   data-aos="fade-up"
                   data-aos-delay={idx * 100}
@@ -223,7 +223,7 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
                     </div>
                     <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center text-white">
-                      <span className="text-sm font-medium flex items-center gap-1.5 opacity-90"><Building size={14}/> {project.type}</span>
+                      <span className="text-sm font-medium flex items-center gap-1.5 opacity-90"><Building size={14} /> {project.type}</span>
                     </div>
                   </div>
 
@@ -232,7 +232,7 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
                     <h3 className="text-2xl font-bold mb-2 group-hover:text-amber-500 transition-colors">
                       {project.name}
                     </h3>
-                    
+
                     <div className="flex items-center gap-2 text-zinc-500 dark:text-zinc-400 mb-6 py-2">
                       <MapPin size={16} className="text-amber-500 flex-shrink-0" />
                       <span className="text-sm truncate">{project.address}</span>
@@ -259,7 +259,7 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
             </div>
             <h3 className="text-2xl font-bold mb-2">No projects found</h3>
             <p className="text-zinc-500">Try adjusting your search criteria</p>
-            <button 
+            <button
               onClick={() => setSearchTerm("")}
               className="mt-6 text-amber-500 font-semibold hover:underline"
             >
@@ -272,11 +272,11 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
       {/* List Property Modal */}
       {isListModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-zinc-900/80 backdrop-blur-sm">
-          <div 
+          <div
             className="bg-white dark:bg-zinc-900 rounded-3xl p-8 max-w-md w-full shadow-2xl relative border border-zinc-200 dark:border-zinc-800"
             style={{ animation: 'fadeIn 0.3s ease-out' }}
           >
-            <button 
+            <button
               onClick={() => setIsListModalOpen(false)}
               className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 p-2 bg-zinc-100 dark:bg-zinc-800 rounded-full transition-colors"
             >
@@ -286,18 +286,18 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
               <h3 className="text-2xl font-bold mb-1 text-zinc-900 dark:text-zinc-100">List Your Property</h3>
               <p className="text-amber-600 dark:text-amber-500 font-extrabold text-lg mb-4">₹2999 <span className="text-sm font-medium text-zinc-500">for 3 Months</span></p>
             </div>
-            
+
             <div className="bg-amber-50/50 dark:bg-amber-900/10 p-4 rounded-2xl mb-6 border border-amber-100 dark:border-amber-900/30">
               <p className="text-zinc-700 dark:text-zinc-300 text-sm leading-relaxed">
                 Our professional team will visit your property, take high-quality pictures, and collect all necessary data for uploading and marketing. <strong className="text-zinc-900 dark:text-zinc-100">Let us handle the hassle!</strong>
               </p>
             </div>
-            
+
             <form onSubmit={handleListSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 ml-1">Your Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="name"
                   required
                   className="w-full px-4 py-3.5 rounded-xl bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 focus:border-amber-500 focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white outline-none"
@@ -306,15 +306,15 @@ export default function ProjectsListing({ initialProjects }: { initialProjects: 
               </div>
               <div>
                 <label className="block text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 ml-1">Phone Number</label>
-                <input 
-                  type="tel" 
+                <input
+                  type="tel"
                   name="phone"
                   required
                   className="w-full px-4 py-3.5 rounded-xl bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 focus:border-amber-500 focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 focus:ring-amber-500/20 transition-all dark:text-white outline-none"
                   placeholder="+91 9876543210"
                 />
               </div>
-              <button 
+              <button
                 type="submit"
                 disabled={isSubmittingList}
                 className="w-full bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 mt-4 text-lg disabled:opacity-70 flex justify-center items-center"
